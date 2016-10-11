@@ -6,7 +6,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  rake
+  rake (~> 11.3)
 
 BUNDLED WITH
    1.12.5
