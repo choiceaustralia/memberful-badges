@@ -1,2 +1,2 @@
 
-gem 'rake'
+gem 'rake', '~> 11.3'
