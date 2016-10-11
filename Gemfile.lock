@@ -1,0 +1,12 @@
+GEM
+  specs:
+    rake (11.3.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  rake
+
+BUNDLED WITH
+   1.12.5
