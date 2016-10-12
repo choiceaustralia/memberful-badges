@@ -1,16 +1,10 @@
-# name: Memberful
-# about: testing
+# name: Memberful Integration
+# about: This adds an interface between Memberful and Discourse. It's a bit of a hack.
 # version: 0.1.0
 # authors: rimian
 
 after_initialize do
-  SessionController.class_eval do
-    def route_redirect
-      redirect_to "/"
-    end
-  end
-
   Discourse::Application.routes.append do
-    get "testing" => "session#route_redirect"
+    get 'memberful': 'memberful#test'
   end
 end
