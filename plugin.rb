@@ -5,6 +5,6 @@
 
 after_initialize do
   Discourse::Application.routes.append do
-    get 'memberful': 'memberful#test'
+    get 'memberful', to: 'memberful#test'
   end
 end
