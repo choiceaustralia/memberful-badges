@@ -1,5 +1,5 @@
 
-class AboutController < ApplicationController
+class MemberfulController < ApplicationController
   def test
     render text: 'Woop!'
   end
