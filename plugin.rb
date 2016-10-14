@@ -5,7 +5,7 @@
 
 after_initialize do
   Discourse::Application.routes.append do
-    get 'memberful', action: :status, :controller => :memberful
-    post 'memberful', :action => :test, :controller => :memberful
+    get 'memberful', action: :status, controller: :memberful
+    post 'memberful', action: :test, controller: :memberful
   end
 end
