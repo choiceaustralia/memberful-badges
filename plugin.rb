@@ -5,7 +5,9 @@
 
 after_initialize do
   Discourse::Application.routes.append do
-    get 'memberful', action: :status, controller: :memberful
-    post 'memberful', action: :test, controller: :memberful
+    namespace 'memberful-integration', :defaults => { :format => 'json' } do
+      get 'memberful', action: :status, controller: :memberful
+      post 'memberful', action: :test, controller: :memberful
+    end
   end
 end
