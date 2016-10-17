@@ -1,7 +1,15 @@
 language: ruby
-dist: trusty
 rvm:
   - 2.3.1
+dist: trusty
+addons:
+  postgresql: 9.3
+  apt:
+    packages:
+    - gifsicle
+    - jpegoptim
+    - optipng
+    - jhead
 before_install:
   - git clone https://github.com/discourse/discourse.git
 install:
