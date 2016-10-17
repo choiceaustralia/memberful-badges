@@ -1,12 +1,12 @@
 # name: Memberful Integration
 # about: This adds an interface between Memberful and Discourse. It's a bit unconventional.
-# version: 0.3.0
+# version: 0.4.0
 # authors: rimian
 
 after_initialize do
   Discourse::Application.routes.append do
-    namespace :memberful, :defaults => { :format => 'json' } do
-      get 'memberful', action: :status, controller: :memberful
+    namespace :memberful, defaults: { :format => 'json' } do
+      get 'status', action: :status, controller: 'memberful'
       post 'memberful', action: :test, controller: :memberful
     end
   end
