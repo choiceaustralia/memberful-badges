@@ -13,6 +13,7 @@ addons:
 before_install:
   - git clone https://github.com/discourse/discourse.git
 install:
+  - cd discourse
   - bundle install --without development --deployment
 before_script:
   - cd discourse
