@@ -4,9 +4,10 @@ rvm:
   - 2.3.1
 before_install:
   - git clone https://github.com/discourse/discourse.git
-  - puts ls -la
 install:
   - bundle install --without development --deployment
 before_script:
-  - bundle exec rake -T
+  - cd discourse
   - bundle exec rake db:create db:migrate
+script:
+  - bundle exec rspec
