@@ -3,7 +3,8 @@ class Memberful::MemberfulController < ApplicationController
   protect_from_forgery unless: -> { true } # TODO
 
   def status
-    render json: { version: '0.3.0' }
+    version = Plugin::Metadata.parse(File.open('plugins/memberful/plugin.rb', 'r')).version
+    render json: { version: version }
   end
 
   def test

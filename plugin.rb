@@ -1,6 +1,6 @@
 # name: Memberful Integration
 # about: This adds an interface between Memberful and Discourse. It's a bit unconventional.
-# version: 0.4.1
+# version: 0.4.2
 # authors: rimian
 
 after_initialize do
