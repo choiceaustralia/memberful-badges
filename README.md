@@ -13,7 +13,7 @@ hooks:
         cd: $home
         cmd:
           - git clone https://github.com/choiceaustralia/memberful-integration --depth 1 tmp/memberful
-          - cp -r tmp/memberful/app/controllers/memberful-integration app/controllers/
+          - cp -r tmp/memberful/app/controllers/memberful app/controllers/
           - cp -r tmp/memberful plugins/
 ```
 
