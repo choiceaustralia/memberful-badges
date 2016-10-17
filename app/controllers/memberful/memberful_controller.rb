@@ -1,3 +1,5 @@
+# This belongs to https://github.com/choiceaustralia/memberful-badges
+# It is copied into app/controllers from plugins/memberful
 
 class Memberful::MemberfulController < ApplicationController
   protect_from_forgery unless: -> { true } # TODO
