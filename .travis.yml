@@ -3,8 +3,8 @@ dist: trusty
 rvm:
   - 2.3.1
 before_install:
-  - git clone https://github.com/discourse/discourse.git --depth 1
-  - ls -la
+  - git clone https://github.com/discourse/discourse.git
+  - puts ls -la
 install:
   - bundle install --without development --deployment
 before_script:
