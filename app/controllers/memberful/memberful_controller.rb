@@ -1,5 +1,5 @@
 
-class MemberfulIntegration::MemberfulController < ApplicationController
+class Memberful::MemberfulController < ApplicationController
   protect_from_forgery unless: -> { true } # TODO
 
   def status
