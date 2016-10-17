@@ -1,4 +1,5 @@
 language: ruby
+dist: trusty
 rvm:
   - 2.3.1
 before_install:
@@ -6,4 +7,5 @@ before_install:
 install:
   - bundle install --without development --deployment
 before_script:
+  - bundle exec rake -T
   - bundle exec rake db:create db:migrate
