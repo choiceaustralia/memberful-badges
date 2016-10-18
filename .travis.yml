@@ -12,8 +12,9 @@ addons:
     - jhead
 before_install:
   - git clone https://github.com/discourse/discourse.git
+  - ls -la
 install:
-  - cd discourse
+  - pwd
   - bundle install --without development --deployment
 before_script:
   - cd discourse
