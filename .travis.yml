@@ -9,7 +9,6 @@ addons:
     - gifsicle
     - jpegoptim
     - optipng
-    - jhead
 before_install:
   - cd ~
   - git clone https://github.com/discourse/discourse.git
