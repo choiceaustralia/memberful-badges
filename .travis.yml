@@ -14,8 +14,7 @@ before_install:
   - git clone https://github.com/discourse/discourse.git
   - ls -la
 install:
-  - cd ~/discourse
-  - bundle install --without development --deployment
+  - cd ~/discourse && bundle install --without development --deployment
 before_script:
   - cd ~/discourse
   - bundle exec rake db:create db:migrate
