@@ -10,6 +10,12 @@ class Memberful::MemberfulController < ApplicationController
   end
 
   def test
-    render json: params
+    render json: memberful_params
+  end
+
+  private
+
+  def memberful_params
+    params.permit(:event, member: [:id, :email])
   end
 end
