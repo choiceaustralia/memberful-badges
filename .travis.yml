@@ -11,7 +11,7 @@ addons:
     - optipng
     - jhead
 before_install:
-  - git clone https://github.com/discourse/discourse.git
+  - cd ~ && git clone https://github.com/discourse/discourse.git
   - pwd
   - ls -l
 install:
