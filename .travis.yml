@@ -16,7 +16,6 @@ before_install:
 install:
   - cd ~/discourse && bundle install --without development --deployment
 before_script:
-  - cd ~/discourse
-  - bundle exec rake db:create db:migrate
+  - cd ~/discourse && bundle exec rake db:create db:migrate
 script:
   - bundle exec rspec
