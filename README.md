@@ -27,7 +27,6 @@ Install this plugin to a local instance of discourse and the following directori
 
 ```
 cp -r plugins/memberful/app/controllers/memberful app/controllers/
-cp -r plugins/memberful/spec/controllers/memberful spec/controllers/
 ```
 
 To test the fixtures with curl:
@@ -42,5 +41,5 @@ curl -H "Content-Type: application/json" -X POST -d $fixture http://0.0.0.0/memb
 Copy the specs (as above)
 
 ```
-bundle exec rspec spec/controllers/memberful
+bundle exec rspec plugins/memberful/spec/controllers/memberful
 ```
