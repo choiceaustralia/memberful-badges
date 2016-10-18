@@ -10,7 +10,7 @@ class Memberful::MemberfulController < ApplicationController
   end
 
   def hooks
-    user = User.find_by_email(memberful_params['member']['email'])
+    user = find_user_by_email
     user.custom_fields['memberful_id'] = memberful_params['member']['id']
     user.save
     render json: memberful_params
@@ -20,5 +20,9 @@ class Memberful::MemberfulController < ApplicationController
 
   def memberful_params
     params.permit(:event, member: [:id, :email])
+  end
+
+  def find_user_by_email
+    User.find_by_email(memberful_params['member']['email'])
   end
 end
