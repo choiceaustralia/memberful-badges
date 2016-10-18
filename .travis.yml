@@ -16,7 +16,8 @@ before_install:
 install:
   - rm ~/discourse/README.md
   - cp -R ~/discourse/* .
-  - bundle exec rake db:create db:migrate
+  - ls -l
   - bundle install --without development --deployment
+  - bundle exec rake db:create db:migrate
 script:
   - bundle exec rspec
