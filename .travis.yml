@@ -11,10 +11,11 @@ addons:
     - optipng
     - jhead
 before_install:
+  - cd ~
   - git clone https://github.com/discourse/discourse.git
   - ls -la
 install:
-  - pwd
+  - cd ~/discourse
   - bundle install --without development --deployment
 before_script:
   - cd discourse
