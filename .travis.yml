@@ -14,7 +14,6 @@ before_install:
   - pwd
   - ls -l
 install:
-  - rm ~/discourse/README.md
   - cp -R ~/discourse/* .
   - ls -l
   - bundle install --without development --deployment
