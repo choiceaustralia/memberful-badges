@@ -12,6 +12,8 @@ addons:
     - jhead
 before_install:
   - git clone https://github.com/discourse/discourse.git
+  - pwd
+  - ls -l
 install:
   - rm README.md
   - cp -R ~/discourse/* .
