@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    memberful (0.1.0)
+    memberful (1.1.0)
       rails (~> 5.0.0, >= 5.0.0.1)
 
 GEM
@@ -46,6 +46,7 @@ GEM
       tzinfo (~> 1.1)
     arel (7.1.4)
     builder (3.2.2)
+    byebug (9.0.6)
     concurrent-ruby (1.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -134,6 +135,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  byebug
   factory_girl_rails
   memberful!
   rspec-rails
