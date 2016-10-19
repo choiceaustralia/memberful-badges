@@ -1,24 +1,11 @@
 require "rails_helper"
 
-module MemberfulEngine
-  class Engine < ::Rails::Engine
-    isolate_namespace MemberfulEngine
-  end
+module Memberful
+  RSpec.describe FoobarController, type: :routing do
+    routes { Memberful::Engine.routes }
 
-  Engine.routes.draw do
-    resources :widgetts, :only => [:index]
-  end
-
-  class WidgettsController < ::ActionController::Base
-    def index
+    it "has routes" do
+      expect(:get => '/foo').to route_to(:controller => "memberful/foobar", :action => "index")
     end
-  end
-end
-
-RSpec.describe MemberfulEngine::WidgettsController, :type => :routing do
-  routes { MemberfulEngine::Engine.routes }
-  it "routes to the list of all widgets" do
-    expect(:get => widgetts_path).
-      to route_to(:controller => "memberful_engine/widgetts", :action => "index")
   end
 end
