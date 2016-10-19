@@ -2,7 +2,26 @@
 
 Integrate Discourse with Memberful's API.
 
+## Usage
+How to use my plugin.
+
 ## Installation
+
+```ruby
+gem 'memberful'
+```
+
+And then execute:
+```bash
+$ bundle
+```
+
+Or install it yourself as:
+```bash
+$ gem install memberful
+```
+
+### Adding to your discourse app
 
 Add the following to your app container in the `after_code` hook:
 
@@ -18,14 +37,6 @@ hooks:
 
 This will copy your controller into discourse and install the plugin which appends the routes.
 
-## Developing
-
-Install this plugin to a local instance of discourse and the following directories:
-
-```
-cp -r plugins/memberful/app/controllers/memberful app/controllers/
-```
-
 ## Testing
 
 To use the fixtures against a local install:
@@ -34,3 +45,6 @@ To use the fixtures against a local install:
 fixture=$(<fixtures/member_signup.json)
 curl -H "Content-Type: application/json" -X POST -d $fixture http://0.0.0.0/memberful/memberful
 ```
+
+## Contributing
+Contribution directions go here.
