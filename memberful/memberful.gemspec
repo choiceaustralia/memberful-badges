@@ -9,9 +9,8 @@ Gem::Specification.new do |s|
   s.version     = Memberful::VERSION
   s.authors     = ["Rimian Perkins"]
   s.email       = ["hello@rimian.com.au"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Memberful."
-  s.description = "TODO: Description of Memberful."
+  s.homepage    = "https://github.com/choiceaustralia/memberful-integration"
+  s.summary     = "A rails engine for memberful integration with discourse"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
