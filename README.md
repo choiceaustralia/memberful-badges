@@ -18,6 +18,10 @@ Enter app: `sudo ./launcher enter app`
 
 `su discourse -c 'bundle install --no-deployment --verbose --without test --without development --path vendor/bundle'``
 
+or
+
+`bundle update --source memberful`
+
 ## Testing
 
 Run the specs:
