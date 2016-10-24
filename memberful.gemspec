@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-require "memberful/version"
+require 'memberful/version'
 
 Gem::Specification.new do |s|
   s.name        = 'memberful'
   s.version     = Memberful::VERSION
-  s.authors     = ["Rimian Perkins"]
-  s.email       = ["hello@rimian.com.au"]
+  s.authors     = ['Rimian Perkins']
+  s.email       = ['hello@rimian.com.au']
   s.homepage    = "https://github.com/choiceaustralia/memberful-integration"
   s.summary     = "A rails engine for memberful integration with discourse"
-  s.license     = "MIT"
+  s.license     = 'MIT'
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
 
