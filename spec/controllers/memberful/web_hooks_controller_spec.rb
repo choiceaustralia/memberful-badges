@@ -4,11 +4,19 @@ module Memberful
   RSpec.describe WebHooksController, type: :controller do
     routes { Memberful::Engine.routes }
 
+    describe 'order completed web hook' do
+      before { post :create }
+
+      it 'is successful' do
+        expect(response).to have_http_status(:created)
+      end
+    end
+
     describe '/status' do
       before { get :status }
 
       it 'is successful' do
-        expect(response.status).to eq 200
+        expect(response).to have_http_status(:ok)
       end
 
       it 'has a version' do
