@@ -12,15 +12,17 @@ Follow these instructions to mount the engine: https://gist.github.com/rimian/17
 
 Restart app: `sudo ./launcher restart app`
 
-## Developing
+## Upgrading
 
-Install this plugin to a local instance of discourse and the following directories:
+Enter app: `sudo ./launcher enter app`
 
-```
-cp -r plugins/memberful/app/controllers/memberful app/controllers/
-```
+`su discourse -c 'bundle install --no-deployment --verbose --without test --without development --path vendor/bundle'``
 
 ## Testing
+
+Run the specs:
+
+`bundle exec rspec`
 
 To use the fixtures against a local install:
 
