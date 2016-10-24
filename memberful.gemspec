@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 require "memberful/version"
 
 Gem::Specification.new do |s|
-  s.name        = "memberful"
+  s.name        = 'memberful'
   s.version     = Memberful::VERSION
   s.authors     = ["Rimian Perkins"]
   s.email       = ["hello@rimian.com.au"]
@@ -17,4 +17,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "byebug"
+  s.add_development_dependency 'shoulda-matchers'
 end
