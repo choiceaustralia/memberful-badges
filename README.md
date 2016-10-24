@@ -6,6 +6,11 @@ Integrate Discourse with Memberful's API.
 
 ## Installation
 
+Enter app: `sudo ./launcher enter app`
+
+Follow these instructions to mount the engine: https://gist.github.com/rimian/170d480c1979b3b6b0880ed0cace31de
+
+Restart app: `sudo ./launcher restart app`
 
 ## Developing
 
