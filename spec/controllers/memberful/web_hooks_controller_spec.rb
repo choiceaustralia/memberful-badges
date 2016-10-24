@@ -5,15 +5,17 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     it 'permits some params' do
-      expect(described_class).to permit(:event, { :member=>[ :id, :email ] }).for(:create)
+      expect(described_class).to permit(:event, { order: [ :member ] }).for(:create)
     end
 
-    describe 'order completed web hook' do
-      before { post :create }
+    it 'is successful' do
+      post :create
+      expect(response).to have_http_status(:created)
+    end
 
-      it 'is successful' do
-        expect(response).to have_http_status(:created)
-      end
+    it 'gives the user a badge' do
+      skip
+      post :create, { event: 'order.completed', order: {} }
     end
 
     describe '/status' do

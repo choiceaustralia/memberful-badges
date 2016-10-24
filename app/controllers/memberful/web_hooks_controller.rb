@@ -7,7 +7,7 @@ module Memberful
     end
 
     def create
-      params.permit(:event, member: [:id, :email])
+      params.permit(:event, order: [:member])
       head :created
     end
   end
