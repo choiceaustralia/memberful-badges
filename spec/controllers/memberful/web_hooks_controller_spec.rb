@@ -5,21 +5,21 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     describe 'create' do
-      let(:user) { double(name: "Ray Zintoast") }
+      let(:user) { double }
+      let(:params) { JSON.parse(File.read('./spec/fixtures/order.completed.json')) }
 
       it 'permits some params' do
-        allow(User).to receive(:find_by_email).and_return(user)
-        expect(described_class).to permit(:event, { order: [ :member ] }).for(:create)
+        allow(User).to receive(:find_by_email)
+        expect(described_class).to permit(:event, { order: [ :member ] }).for(:create, params: params)
       end
 
-       it 'works with find_by' do
-         expect(User).to receive(:find_by_email).and_return(user)
-         post :create
-       end
+      it 'works with find_by' do
+        expect(User).to receive(:find_by_email).with('john.doe@example.com').and_return(user)
+        post :create, params
+      end
     end
 
     it 'gives the user a badge' do
-      skip
       post :create, { event: 'order.completed', order: { member: { email: 'doogie@example.com' } } }
       expect(::User).to be_truthy
     end

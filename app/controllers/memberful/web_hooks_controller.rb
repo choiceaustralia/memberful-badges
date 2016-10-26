@@ -8,7 +8,7 @@ module Memberful
 
     def create
       params.permit(:event, order: [:member])
-      user = User.find_by_email('test@example.com.au')
+      user = User.find_by_email(params['order']['member']['email'])
       # badge = ::Badge.find_by_name("Basic User")
       # BadgeGranter.grant(badge, user)
       head :created
