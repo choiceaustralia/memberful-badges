@@ -1,7 +1,9 @@
-require_dependency "memberful/application_controller"
+require_dependency 'memberful/application_controller'
 
 module Memberful
   class WebHooksController < ApplicationController
+    protect_from_forgery if: -> { false } #TODO
+
     def status
       render json: { version: Memberful::VERSION }
     end
