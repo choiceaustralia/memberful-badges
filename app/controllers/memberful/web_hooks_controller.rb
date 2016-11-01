@@ -9,8 +9,8 @@ module Memberful
     end
 
     def create
-      params.permit(:event, order: [:member])
-      user = User.find_by_email(params['order']['member']['email'])
+      data = JSON.parse(request.body.read)
+      user = User.find_by_email(data['order']['member']['email'])
       badge = Badge.find_by_name('Consumer Defender')
       BadgeGranter.grant(badge, user)
       head :created
