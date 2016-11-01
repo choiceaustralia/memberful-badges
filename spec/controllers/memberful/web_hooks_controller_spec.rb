@@ -5,12 +5,12 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     describe 'create' do
-      let(:params) { JSON.parse(File.read('./spec/fixtures/order.completed.json')) }
+      let(:data) { File.read('./spec/fixtures/order.completed.json') }
+      let(:headers) { { 'CONTENT_TYPE': 'application/x-www-form-urlencoded' } }
 
       it 'finds the user' do
-        allow(JSON).to receive(:parse).and_return(params)
         expect(User).to receive(:find_by_email).with('john.doe@example.com')
-        post :create
+        post :create, data, headers
       end
     end
 
