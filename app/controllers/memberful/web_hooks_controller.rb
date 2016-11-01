@@ -10,10 +10,12 @@ module Memberful
 
     def create
       data = JSON.parse(request.body.read)
-      user = User.find_by_email(data['order']['member']['email'])
-      badge = Badge.find_by_name('Consumer Defender')
-      BadgeGranter.grant(badge, user)
-      head :created
+      if data['event'] == 'order.completed'
+        user = User.find_by_email(data['order']['member']['email'])
+        badge = Badge.find_by_name('Consumer Defender')
+        BadgeGranter.grant(badge, user)
+        head :created
+      end
     end
   end
 end
