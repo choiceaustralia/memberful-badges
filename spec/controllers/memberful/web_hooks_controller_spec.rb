@@ -5,7 +5,7 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     describe 'create' do
-      let(:data) { File.read('./spec/fixtures/order.completed.json') }
+      let(:data) { File.read('./spec/fixtures/order.purchased.json') }
       let(:headers) { { 'CONTENT_TYPE': 'application/x-www-form-urlencoded' } }
       let(:user) { double }
       let(:badge) { double }
