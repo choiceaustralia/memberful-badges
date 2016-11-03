@@ -10,7 +10,7 @@ module Memberful
 
     def create
       data = JSON.parse(request.body.read)
-      if data['event'] == 'order.completed'
+      if data['event'] == 'order.purchased'
         user = User.find_by_email(data['order']['member']['email'])
         badge = Badge.find_by_name('Consumer Defender')
         BadgeGranter.grant(badge, user)
