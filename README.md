@@ -16,6 +16,7 @@ Restart app: `sudo ./launcher restart app`
 
 Enter app: `sudo ./launcher enter app`
 
+
 `su discourse -c 'bundle install --no-deployment --verbose --without test --without development --path vendor/bundle'``
 
 or
@@ -34,3 +35,9 @@ To use the fixtures against a local install:
 fixture=$(<fixtures/member_signup.json)
 curl -H "Content-Type: application/json" -X POST -d $fixture http://0.0.0.0/memberful/memberful
 ```
+## Status
+
+You can check what version is currently installed here:
+
+https://choice.community/memberful/status
+https://staging.choice.community/memberful/status
