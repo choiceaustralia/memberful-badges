@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    memberful (1.7.2)
+    memberful (1.8.0)
       rails (~> 4.2.7.1)
 
 GEM

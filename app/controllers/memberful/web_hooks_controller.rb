@@ -15,6 +15,8 @@ module Memberful
         badge = Badge.find_by_name('Consumer Defender')
         BadgeGranter.grant(badge, user)
         head :created
+      else
+        head :ok
       end
     end
   end
