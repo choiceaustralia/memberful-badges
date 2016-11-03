@@ -12,15 +12,22 @@ Follow these instructions to mount the engine: https://gist.github.com/rimian/17
 
 Restart app: `sudo ./launcher restart app`
 
-## Developing
+## Upgrading
 
-Install this plugin to a local instance of discourse and the following directories:
+Enter app: `sudo ./launcher enter app`
 
-```
-cp -r plugins/memberful/app/controllers/memberful app/controllers/
-```
+
+`su discourse -c 'bundle install --no-deployment --verbose --without test --without development --path vendor/bundle'``
+
+or
+
+`bundle update --source memberful`
 
 ## Testing
+
+Run the specs:
+
+`bundle exec rspec`
 
 To use the fixtures against a local install:
 
@@ -28,3 +35,9 @@ To use the fixtures against a local install:
 fixture=$(<fixtures/member_signup.json)
 curl -H "Content-Type: application/json" -X POST -d $fixture http://0.0.0.0/memberful/memberful
 ```
+## Status
+
+You can check what version is currently installed here:
+
+https://choice.community/memberful/status
+https://staging.choice.community/memberful/status
