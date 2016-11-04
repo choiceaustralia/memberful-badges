@@ -14,7 +14,12 @@ module Memberful
       if event_actionable?(data)
         user = User.find_by_email(data['order']['member']['email'])
         badge = Badge.find_by_name('Consumer Defender')
+
         BadgeGranter.grant(badge, user) if data['event'] == 'order.purchased'
+
+        if data['event'] == 'order.suspended'
+          user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
+        end
       end
 
       head :ok
