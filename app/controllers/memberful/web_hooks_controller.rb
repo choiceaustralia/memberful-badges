@@ -10,7 +10,7 @@ module Memberful
 
     def create
       data = JSON.parse(request.body.read)
-      if data['event'] == 'order.purchased'
+      if actionable_event?(data)
         user = User.find_by_email(data['order']['member']['email'])
         badge = Badge.find_by_name('Consumer Defender')
         BadgeGranter.grant(badge, user)
@@ -18,6 +18,12 @@ module Memberful
       else
         head :ok
       end
+    end
+
+    private
+
+    def actionable_event?(data)
+      data['event'] == 'order.purchased'
     end
   end
 end
