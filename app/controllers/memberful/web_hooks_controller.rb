@@ -19,6 +19,7 @@ module Memberful
 
         if data['event'] == 'order.suspended'
           user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
+          BadgeGranter.revoke(user_badge)
         end
       end
 
