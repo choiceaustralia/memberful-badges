@@ -39,5 +39,5 @@ curl -H "Content-Type: application/json" -X POST -d $fixture http://0.0.0.0/memb
 
 You can check what version is currently installed here:
 
-https://choice.community/memberful/status
-https://staging.choice.community/memberful/status
+* https://choice.community/memberful/status
+* https://staging.choice.community/memberful/status
