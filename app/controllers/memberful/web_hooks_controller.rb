@@ -17,7 +17,7 @@ module Memberful
 
         BadgeGranter.grant(badge, user) if data['event'] == 'order.purchased'
 
-        if data['event'] == 'order.suspended'
+        if event_revoke?(data)
           user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
           BadgeGranter.revoke(user_badge)
         end
@@ -30,6 +30,10 @@ module Memberful
 
     def event_actionable?(data)
       ['order.purchased', 'order.suspended'].include?(data['event'])
+    end
+
+    def event_revoke?(data)
+      data['event'] == 'order.suspended'
     end
   end
 end
