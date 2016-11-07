@@ -33,8 +33,9 @@ To use the fixtures against a local install:
 
 ```
 fixture=$(<spec/support/fixtures/member_signup.json)
-curl -H "Content-Type: application/x-www-form-urlencoded" -X POST -d $fixture http://0.0.0.0/memberful/hooks
+curl -H "Content-Type: application/x-www-form-urlencoded" -v -X POST -d $fixture http://0.0.0.0/memberful/hooks
 ```
+
 ## Status
 
 You can check what version is currently installed here:

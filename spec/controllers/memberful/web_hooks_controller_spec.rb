@@ -9,6 +9,18 @@ module Memberful
       let(:user) { double(id: 2, save: nil) }
       let(:badge) { double(id: 4) }
 
+      describe 'non community member users' do
+        let(:data) { read_fixture('member_signup.json') }
+
+        before { allow(User).to receive(:find_by_email).and_return(nil) }
+
+        it 'ignores non users for member signup' do
+          expect(UserCustomField).not_to receive(:create!)
+          expect(User).not_to receive(:save)
+          post :create, data, headers
+        end
+      end
+
       describe 'save memberful ID' do
         let(:data) { read_fixture('member_signup.json') }
 
