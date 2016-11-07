@@ -6,7 +6,7 @@ module Memberful
 
     describe 'web hooks' do
       let(:headers) { { 'CONTENT_TYPE': 'application/x-www-form-urlencoded' } }
-      let(:user) { double(id: 2) }
+      let(:user) { double(id: 2, save: nil) }
       let(:badge) { double(id: 4) }
 
       describe 'save memberful ID' do

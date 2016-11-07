@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Memberful Web Hooks Integration', type: :request do
   let(:content_type) { 'application/x-www-form-urlencoded' }
   let(:headers) { { 'CONTENT_TYPE': content_type } }
-  let(:user) { double(id: 2) }
+  let(:user) { double(id: 2, save: nil) }
   let(:badge) { double(id: 4) }
 
   describe 'orders' do
@@ -14,6 +14,7 @@ RSpec.describe 'Memberful Web Hooks Integration', type: :request do
 
         allow(User).to receive(:find_by_email).and_return(user)
         allow(Badge).to receive(:find_by_name).and_return(badge)
+        allow(User).to receive(:save)
 
         post '/memberful/hooks', raw_data, headers
 
