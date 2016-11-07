@@ -10,14 +10,17 @@ module Memberful
       let(:badge) { double(id: 4) }
 
       describe 'non community member users' do
-        let(:data) { read_fixture('member_signup.json') }
-
         before { allow(User).to receive(:find_by_email).and_return(nil) }
 
         it 'ignores non users for member signup' do
           expect(UserCustomField).not_to receive(:create!)
           expect(User).not_to receive(:save)
-          post :create, data, headers
+          post :create, read_fixture('member_signup.json'), headers
+        end
+
+        it 'ignores non users for orders' do
+          expect(Badge).not_to receive(:find_by_name)
+          post :create, read_fixture('order.purchased.json'), headers
         end
       end
 
@@ -47,6 +50,7 @@ module Memberful
         end
 
         it 'finds the badge' do
+          allow(User).to receive(:find_by_email).and_return(user)
           expect(Badge).to receive(:find_by_name).with('Consumer Defender')
         end
 

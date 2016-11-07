@@ -13,13 +13,18 @@ module Memberful
 
       if event_order?(data)
         user = User.find_by_email(data['order']['member']['email'])
-        badge = Badge.find_by_name('Consumer Defender')
 
-        BadgeGranter.grant(badge, user) if data['event'] == 'order.purchased'
+        unless user.nil?
 
-        if event_revoke?(data)
-          user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
-          BadgeGranter.revoke(user_badge)
+          badge = Badge.find_by_name('Consumer Defender')
+
+          BadgeGranter.grant(badge, user) if data['event'] == 'order.purchased'
+
+          if event_revoke?(data)
+            user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
+            BadgeGranter.revoke(user_badge)
+          end
+
         end
 
       elsif event_signup?(data)
