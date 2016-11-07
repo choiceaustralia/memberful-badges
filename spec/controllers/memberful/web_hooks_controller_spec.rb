@@ -10,7 +10,7 @@ module Memberful
       let(:badge) { double(id: 4) }
 
       describe 'grant user a badge' do
-        let(:data) { File.read('./spec/fixtures/order.purchased.json') }
+        let(:data) { read_fixture('order.purchased.json') }
 
         after { post :create, data, headers }
 
@@ -30,7 +30,7 @@ module Memberful
       end
 
       describe 'revoking a badge' do
-        let(:data) { File.read('./spec/fixtures/order.suspended.json') }
+        let(:data) { read_fixture('order.suspended.json') }
 
         after { post :create, data, headers }
 
