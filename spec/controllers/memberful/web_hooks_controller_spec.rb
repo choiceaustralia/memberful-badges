@@ -9,6 +9,16 @@ module Memberful
       let(:user) { double(id: 2) }
       let(:badge) { double(id: 4) }
 
+      describe 'save memberful ID' do
+        let(:data) { read_fixture('member_signup.json') }
+
+        after { post :create, data, headers }
+
+        it 'finds the user' do
+          expect(User).to receive(:find_by_email).with('john.doe@example.com')
+        end
+      end
+
       describe 'grant user a badge' do
         let(:data) { read_fixture('order.purchased.json') }
 
