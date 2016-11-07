@@ -18,6 +18,11 @@ module Memberful
           allow(UserCustomField).to receive(:create!)
           expect(User).to receive(:find_by_email).with('john.doe@example.com').and_return(user)
         end
+
+        it 'creates a custom field' do
+          allow(User).to receive(:find_by_email).and_return(user)
+          expect(UserCustomField).to receive(:create!).with(user_id: user.id, name: 'memberful_id', value: 0)
+        end
       end
 
       describe 'grant user a badge' do
