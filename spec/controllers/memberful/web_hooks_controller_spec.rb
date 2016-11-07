@@ -15,7 +15,8 @@ module Memberful
         after { post :create, data, headers }
 
         it 'finds the user' do
-          expect(User).to receive(:find_by_email).with('john.doe@example.com')
+          allow(UserCustomField).to receive(:create!)
+          expect(User).to receive(:find_by_email).with('john.doe@example.com').and_return(user)
         end
       end
 

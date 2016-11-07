@@ -24,6 +24,7 @@ module Memberful
 
       elsif event_signup?(data)
         user = User.find_by_email(data['member']['email'])
+        UserCustomField.create!(user_id: user.id, name: 'memberful_id', value: data['member']['id'])
       end
 
       head :ok
