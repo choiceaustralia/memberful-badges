@@ -11,7 +11,7 @@ module Memberful
     def create
       data = JSON.parse(request.body.read)
 
-      if event_actionable?(data)
+      if event_order?(data)
         user = User.find_by_email(data['order']['member']['email'])
         badge = Badge.find_by_name('Consumer Defender')
 
@@ -21,6 +21,10 @@ module Memberful
           user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
           BadgeGranter.revoke(user_badge)
         end
+
+      elsif event_signup?(data)
+        user = User.find_by_email(data['member']['email'])
+        UserCustomField.create!(user_id: user.id, name: 'memberful_id', value: data['member']['id'])
       end
 
       head :ok
@@ -28,12 +32,16 @@ module Memberful
 
     private
 
-    def event_actionable?(data)
+    def event_order?(data)
       ['order.purchased', 'order.suspended'].include?(data['event'])
     end
 
     def event_revoke?(data)
       data['event'] == 'order.suspended'
+    end
+
+    def event_signup?(data)
+      data['event'] == 'member_signup'
     end
   end
 end

@@ -3,11 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Memberful Web Hooks Integration', type: :request do
   let(:content_type) { 'application/x-www-form-urlencoded' }
   let(:headers) { { 'CONTENT_TYPE': content_type } }
+  let(:user) { double(id: 2) }
+  let(:badge) { double(id: 4) }
 
   describe 'orders' do
-    let(:user) { double(id: 2) }
-    let(:badge) { double(id: 4) }
-
     ['order.completed', 'order.suspended', 'order.purchased'].each do |hook|
       it "accepts #{hook} hook" do
         raw_data = read_fixture("#{hook}.json")
@@ -30,6 +29,7 @@ RSpec.describe 'Memberful Web Hooks Integration', type: :request do
 
   ['member_signup', 'member_updated'].each do |hook|
     it "accepts #{hook} hook" do
+      allow(User).to receive(:find_by_email).and_return(user)
       raw_data = read_fixture("#{hook}.json")
       post '/memberful/hooks', raw_data, headers
       expect(response.status).to eq 200
