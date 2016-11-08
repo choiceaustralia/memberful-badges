@@ -4,6 +4,14 @@
 
 Integrate Discourse with Memberful's API via a Rails Engine
 
+## Web Hooks
+
+This app currently responds to the following web hooks:
+
+* `order.purchased`
+* `order.suspended`
+* `member_signup`
+
 ## Installation
 
 Enter app: `sudo ./launcher enter app`
@@ -16,7 +24,6 @@ Restart app: `sudo ./launcher restart app`
 
 Enter app: `sudo ./launcher enter app`
 
-
 `su discourse -c 'bundle install --no-deployment --verbose --without test --without development --path vendor/bundle'``
 
 or
@@ -25,20 +32,23 @@ or
 
 ## Testing
 
-Run the specs:
+There are example users that respond to test web hooks:
 
-`bundle exec rspec`
+https://choice.memberful.com/admin/settings/integrate/webhooks
 
-To use the fixtures against a local install:
+Developers might like to use the fixtures against a local install:
 
 ```
 fixture=$(<spec/support/fixtures/member_signup.json)
 curl -H "Content-Type: application/x-www-form-urlencoded" -v -X POST -d $fixture http://0.0.0.0/memberful/hooks
 ```
 
+Run the specs:
+
+`bundle exec rspec`
+
 ## Status
 
 You can check what version is currently installed here:
 
 * https://choice.community/memberful/status
-* https://staging.choice.community/memberful/status
