@@ -1,0 +1,32 @@
+diff --git a/Gemfile b/Gemfile
+index 61acfa3..abb8fcf 100644
+--- a/Gemfile
++++ b/Gemfile
+@@ -209,3 +209,4 @@ group :profile do
+   # if you need to profile, uncomment out this line
+   # gem 'rack-perftools_profiler', require: 'rack/perftools_profiler', platform: :mri_19
+ end
++gem 'memberful', :git => 'https://github.com/choiceaustralia/memberful-integration.git'
+diff --git a/Gemfile.lock b/Gemfile.lock
+index 9888729..3dfa50a 100644
+--- a/Gemfile.lock
++++ b/Gemfile.lock
+@@ -1,3 +1,10 @@
++GIT
++  remote: https://github.com/choiceaustralia/memberful-integration.git
++  revision: b36b7b9c4e19c20bc0e0c4d96a7e1f154907b2f9
++  specs:
++    memberful (1.10.3)
++      rails (~> 4.2.7.1)
++
+ GEM
+   remote: https://rubygems.org/
+   specs:
+@@ -434,6 +441,7 @@ DEPENDENCIES
+   logster
+   lru_redux
+   mail
++  memberful!
+   memory_profiler
+   message_bus
+   mime-types
