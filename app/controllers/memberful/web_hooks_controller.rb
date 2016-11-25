@@ -25,7 +25,7 @@ module Memberful
           BadgeGranter.revoke(user_badge)
         end
 
-      elsif event_signup?
+      elsif @hook.signup?
         UserCustomField.create!(user_id: user.id, name: 'memberful_id', value: @data['member']['id'])
         user.save
       end
@@ -38,17 +38,13 @@ module Memberful
     def find_user_by_memberful_data
       if @hook.order?
         User.find_by_email(@data['order']['member']['email'])
-      elsif event_signup?
+      elsif @hook.signup?
         User.find_by_email(@data['member']['email'])
       end
     end
 
     def event_revoke?
       @data['event'] == 'order.suspended'
-    end
-
-    def event_signup?
-      @data['event'] == 'member_signup'
     end
   end
 end

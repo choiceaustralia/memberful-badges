@@ -7,10 +7,20 @@ class MemberfulHook
   end
 
   def order?
-    ['order.purchased', 'order.suspended'].include?(data['event'])
+    ['order.purchased', 'order.suspended'].include?(event)
   end
 
   def purchased?
-    data['event'] == 'order.purchased'
+    event == 'order.purchased'
+  end
+
+  def signup?
+    event == 'member_signup'
+  end
+
+  private
+
+  def event
+    data['event']
   end
 end
