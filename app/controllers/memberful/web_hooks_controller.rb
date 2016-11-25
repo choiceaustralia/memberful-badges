@@ -18,7 +18,7 @@ module Memberful
       if @hook.order?
         badge = Badge.find_by_name('Consumer Defender')
 
-        BadgeGranter.grant(badge, user) if @data['event'] == 'order.purchased'
+        BadgeGranter.grant(badge, user) if @hook.purchased?
 
         if event_revoke?
           user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)

@@ -9,4 +9,8 @@ class MemberfulHook
   def order?
     ['order.purchased', 'order.suspended'].include?(data['event'])
   end
+
+  def purchased?
+    data['event'] == 'order.purchased'
+  end
 end
