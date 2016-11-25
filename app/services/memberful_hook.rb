@@ -14,6 +14,10 @@ class MemberfulHook
     event == 'order.purchased'
   end
 
+  def suspended?
+    event == 'order.suspended'
+  end
+
   def signup?
     event == 'member_signup'
   end

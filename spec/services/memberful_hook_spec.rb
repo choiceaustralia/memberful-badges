@@ -24,4 +24,11 @@ RSpec.describe MemberfulHook do
     it { expect(subject('member_signup.json')).to be_signup }
     it { expect(subject('member_updated.json')).not_to be_signup }
   end
+
+  describe '#suspended?' do
+    it { expect(subject('order.suspended.json')).to be_suspended }
+    it { expect(subject('order.purchased.json')).not_to be_suspended }
+    it { expect(subject('member_signup.json')).not_to be_suspended }
+    it { expect(subject('member_updated.json')).not_to be_suspended }
+  end
 end

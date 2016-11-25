@@ -20,7 +20,7 @@ module Memberful
 
         BadgeGranter.grant(badge, user) if @hook.purchased?
 
-        if event_revoke?
+        if @hook.suspended?
           user_badge = UserBadge.find_by(badge_id: badge.id, user_id: user.id)
           BadgeGranter.revoke(user_badge)
         end
@@ -41,10 +41,6 @@ module Memberful
       elsif @hook.signup?
         User.find_by_email(@data['member']['email'])
       end
-    end
-
-    def event_revoke?
-      @data['event'] == 'order.suspended'
     end
   end
 end
