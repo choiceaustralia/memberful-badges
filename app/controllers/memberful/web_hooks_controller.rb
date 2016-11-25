@@ -10,11 +10,12 @@ module Memberful
 
     def create
       @data = JSON.parse(request.body.read)
+      @hook = MemberfulHook.new(request.body.read)
       user = find_user_by_memberful_data
 
       head :ok and return if user.nil?
 
-      if event_order?
+      if @hook.order?
         badge = Badge.find_by_name('Consumer Defender')
 
         BadgeGranter.grant(badge, user) if @data['event'] == 'order.purchased'
@@ -35,15 +36,11 @@ module Memberful
     private
 
     def find_user_by_memberful_data
-      if event_order?
+      if @hook.order?
         User.find_by_email(@data['order']['member']['email'])
       elsif event_signup?
         User.find_by_email(@data['member']['email'])
       end
-    end
-
-    def event_order?
-      ['order.purchased', 'order.suspended'].include?(@data['event'])
     end
 
     def event_revoke?
