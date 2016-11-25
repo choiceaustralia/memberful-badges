@@ -10,7 +10,7 @@ module Memberful
 
     def create
       @data = JSON.parse(request.body.read)
-      user = find_user
+      user = find_user_by_memberful_data
 
       head :ok and return if user.nil?
 
@@ -34,7 +34,7 @@ module Memberful
 
     private
 
-    def find_user
+    def find_user_by_memberful_data
       if event_order?
         User.find_by_email(@data['order']['member']['email'])
       elsif event_signup?
