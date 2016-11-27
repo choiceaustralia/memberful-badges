@@ -23,10 +23,18 @@ class MemberfulHook
   end
 
   def email
-    order? ? data['order']['member']['email'] : data['member']['email']
+    member['email']
+  end
+
+  def memberful_id
+    member['id']
   end
 
   private
+
+  def member
+    order? ? data['order']['member'] : data['member']
+  end
 
   def event
     data['event']

@@ -9,7 +9,6 @@ module Memberful
     end
 
     def create
-      @data = JSON.parse(request.body.read)
       @hook = MemberfulHook.new(request.body.read)
       user = find_user_by_memberful_data
 
@@ -26,7 +25,7 @@ module Memberful
         end
 
       elsif @hook.signup?
-        UserCustomField.create!(user_id: user.id, name: 'memberful_id', value: @data['member']['id'])
+        UserCustomField.create!(user_id: user.id, name: 'memberful_id', value: @hook.memberful_id)
         user.save
       end
 

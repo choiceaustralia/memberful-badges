@@ -38,4 +38,11 @@ RSpec.describe MemberfulHook do
     it { expect(subject('order.purchased.json').email).to eq 'john.doe@example.com' }
     it { expect(subject('member_signup.json').email).to eq 'arthur.wrightus@example.com' }
   end
+
+  describe 'gets the member id' do
+    it { expect(subject('order.suspended.json').memberful_id).to eq 23 }
+    it { expect(subject('order.refunded.json').memberful_id).to eq 232 }
+    it { expect(subject('member_signup.json').memberful_id).to eq 752 }
+    it { expect(subject('member_updated.json').memberful_id).to eq 11 }
+  end
 end
