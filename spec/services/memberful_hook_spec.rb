@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe MemberfulHook do
-
   def subject(fixture)
     described_class.new(read_fixture(fixture))
   end
@@ -30,5 +29,11 @@ RSpec.describe MemberfulHook do
     it { expect(subject('order.purchased.json')).not_to be_suspended }
     it { expect(subject('member_signup.json')).not_to be_suspended }
     it { expect(subject('member_updated.json')).not_to be_suspended }
+  end
+
+  describe 'gets the member email address' do
+    it { expect(subject('order.suspended.json').email).to eq 'ray.zintoast@example.com' }
+    it { expect(subject('order.purchased.json').email).to eq 'john.doe@example.com' }
+    it { expect(subject('member_signup.json').email).to eq 'arthur.wrightus@example.com' }
   end
 end

@@ -36,11 +36,7 @@ module Memberful
     private
 
     def find_user_by_memberful_data
-      if @hook.order?
-        User.find_by_email(@data['order']['member']['email'])
-      elsif @hook.signup?
-        User.find_by_email(@data['member']['email'])
-      end
+      User.find_by_email(@hook.email)
     end
   end
 end

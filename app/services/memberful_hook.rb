@@ -22,6 +22,10 @@ class MemberfulHook
     event == 'member_signup'
   end
 
+  def email
+    order? ? data['order']['member']['email'] : data['member']['email']
+  end
+
   private
 
   def event

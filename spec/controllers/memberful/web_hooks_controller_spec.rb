@@ -31,7 +31,7 @@ module Memberful
 
         it 'finds the user' do
           allow(UserCustomField).to receive(:create!)
-          expect(User).to receive(:find_by_email).with('john.doe@example.com').and_return(user)
+          expect(User).to receive(:find_by_email).with('arthur.wrightus@example.com').and_return(user)
         end
 
         it 'creates a custom field' do
