@@ -6,7 +6,9 @@ RSpec.describe MemberfulHook do
   end
 
   describe '#order?' do
+    it { expect(subject('order.completed.json')).to be_order }
     it { expect(subject('order.purchased.json')).to be_order }
+    it { expect(subject('order.refunded.json')).to be_order }
     it { expect(subject('order.suspended.json')).to be_order }
     it { expect(subject('member_updated.json')).not_to be_order }
     it { expect(subject('member_signup.json')).not_to be_order }

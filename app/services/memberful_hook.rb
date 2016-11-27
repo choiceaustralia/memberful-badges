@@ -7,7 +7,7 @@ class MemberfulHook
   end
 
   def order?
-    ['order.purchased', 'order.suspended'].include?(event)
+    %r{^order\.}.match(event).present?
   end
 
   def purchased?
