@@ -10,7 +10,7 @@ class MemberfulHook
   end
 
   def valid?
-    Digest::SHA256.hexdigest(@request.body.read + @secret) == request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST']
+    Digest::SHA256.hexdigest(@request.body.read.strip + @secret) == request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST']
   end
 
   def order?
