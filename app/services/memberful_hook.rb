@@ -1,9 +1,13 @@
 
 class MemberfulHook
-  attr_reader :data
+  attr_reader :data, :secret
 
-  def initialize(payload)
+  def initialize(payload, secret)
     @data = JSON.parse(payload)
+  end
+
+  def valid?
+    true
   end
 
   def order?

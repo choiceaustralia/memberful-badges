@@ -9,7 +9,9 @@ module Memberful
     end
 
     def create
-      @hook = MemberfulHook.new(request.body.read)
+      @hook = MemberfulHook.new(request.body.read, 'secret')
+      head :forbidden and return if !@hook.valid?
+
       user = find_user_by_memberful_data
 
       head :ok and return if user.nil?

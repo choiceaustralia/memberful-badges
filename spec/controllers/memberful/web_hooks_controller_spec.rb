@@ -12,6 +12,20 @@ module Memberful
         request.headers['CONTENT_TYPE'] = 'application/x-www-form-urlencoded'
       end
 
+      describe 'valid web hooks' do
+        it 'is a valid web hook' do
+          expect_any_instance_of(MemberfulHook).to receive(:valid?).and_return(true)
+          post :create, read_fixture('member_signup.json')
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'not is a valid web hook' do
+          expect_any_instance_of(MemberfulHook).to receive(:valid?).and_return(false)
+          post :create, read_fixture('member_signup.json')
+          expect(response).to have_http_status(:forbidden)
+        end
+      end
+
       describe 'non community member users' do
         before { allow(User).to receive(:find_by_email).and_return(nil) }
 

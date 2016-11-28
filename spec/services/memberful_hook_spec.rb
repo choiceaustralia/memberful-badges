@@ -2,7 +2,11 @@ require 'rails_helper'
 
 RSpec.describe MemberfulHook do
   def subject(fixture)
-    described_class.new(read_fixture(fixture))
+    described_class.new(read_fixture(fixture), 'secret')
+  end
+
+  describe '#valid?' do
+    it { expect(subject('member_signup.json')).to be_valid }
   end
 
   describe '#order?' do
