@@ -5,9 +5,12 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     describe 'web hooks' do
-      let(:headers) { { 'CONTENT_TYPE': 'application/x-www-form-urlencoded' } }
       let(:user) { double(id: 2, save: nil) }
       let(:badge) { double(id: 4) }
+
+      before do
+        request.headers['CONTENT_TYPE'] = 'application/x-www-form-urlencoded'
+      end
 
       describe 'non community member users' do
         before { allow(User).to receive(:find_by_email).and_return(nil) }
@@ -15,19 +18,19 @@ module Memberful
         it 'ignores non users for member signup' do
           expect(UserCustomField).not_to receive(:create!)
           expect(User).not_to receive(:save)
-          post :create, read_fixture('member_signup.json'), headers
+          post :create, read_fixture('member_signup.json')
         end
 
         it 'ignores non users for orders' do
           expect(Badge).not_to receive(:find_by_name)
-          post :create, read_fixture('order.purchased.json'), headers
+          post :create, read_fixture('order.purchased.json')
         end
       end
 
       describe 'save memberful ID' do
         let(:data) { read_fixture('member_signup.json') }
 
-        after { post :create, data, headers }
+        after { post :create, data }
 
         it 'finds the user' do
           allow(UserCustomField).to receive(:create!)
@@ -43,7 +46,7 @@ module Memberful
       describe 'grant user a badge' do
         let(:data) { read_fixture('order.purchased.json') }
 
-        after { post :create, data, headers }
+        after { post :create, data }
 
         it 'finds the user' do
           expect(User).to receive(:find_by_email).with('john.doe@example.com')
@@ -64,7 +67,7 @@ module Memberful
       describe 'revoking a badge' do
         let(:data) { read_fixture('order.suspended.json') }
 
-        after { post :create, data, headers }
+        after { post :create, data }
 
         it 'revokes the badge from the user' do
           allow(User).to receive(:find_by_email).and_return(user)
