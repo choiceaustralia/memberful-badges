@@ -9,7 +9,7 @@ module Memberful
     end
 
     def create
-      @hook = MemberfulHook.new(request.body.read)
+      @hook = MemberfulHook.new(request, ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'])
       head :forbidden and return if !@hook.valid?
 
       user = find_user_by_memberful_data
