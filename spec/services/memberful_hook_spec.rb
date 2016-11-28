@@ -6,7 +6,7 @@ RSpec.describe MemberfulHook do
     let(:request) do
       double(
         body: double(read: read_fixture('member_signup.json')),
-        headers: { 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST' => 'e705c95c8c076f72dedd4ff54a56fdc4fce05d10f9b7ec7fc183ddfa948857e6' }
+        headers: { 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST' => '6b22b77bf833947f89f4df32f7d0e1307555f20eab6890aee0ec6cc1abe495fa' }
       )
     end
 
@@ -55,14 +55,13 @@ RSpec.describe MemberfulHook do
 
     describe 'gets the member email address' do
       it { expect(subject('order.suspended.json').email).to eq 'ray.zintoast@example.com' }
-      it { expect(subject('order.purchased.json').email).to eq 'john.doe@example.com' }
-      it { expect(subject('member_signup.json').email).to eq 'arthur.wrightus@example.com' }
+      it { expect(subject('order.purchased.json').email).to eq 'arthur.wrightus@example.com' }
+      it { expect(subject('member_signup.json').email).to eq 'john.doe@example.com' }
     end
 
     describe 'gets the member id' do
       it { expect(subject('order.suspended.json').memberful_id).to eq 23 }
       it { expect(subject('order.refunded.json').memberful_id).to eq 232 }
-      it { expect(subject('member_signup.json').memberful_id).to eq 752 }
       it { expect(subject('member_updated.json').memberful_id).to eq 11 }
     end
   end

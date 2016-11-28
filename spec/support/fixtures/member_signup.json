@@ -13,10 +13,10 @@
      "exp_year": 2040
    },
    "custom_field": "Custom field value",
-   "email": "arthur.wrightus@example.com",
+   "email": "john.doe@example.com",
    "first_name": "John",
    "full_name": "John Doe",
-   "id": 752,
+   "id": 0,
    "last_name": "Doe",
    "phone_number": "555-12345",
    "stripe_customer_id": "cus_00000",
