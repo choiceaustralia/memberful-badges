@@ -14,6 +14,10 @@ This app currently responds to the following web hooks:
 
 ## Installation
 
+Set your secret key in your config (do not save this key to a repository):
+
+`DISCOURSE_MEMBERFUL_WEBHOOK_SECRET: secret`
+
 Enter app: `sudo ./launcher enter app`
 
 Follow these instructions to mount the engine: https://gist.github.com/rimian/170d480c1979b3b6b0880ed0cace31de

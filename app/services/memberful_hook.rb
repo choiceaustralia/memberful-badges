@@ -1,13 +1,13 @@
 
 class MemberfulHook
-  attr_reader :data, :secret
+  attr_reader :data
 
-  def initialize(payload, secret)
+  def initialize(payload)
     @data = JSON.parse(payload)
   end
 
   def valid?
-    true
+    ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'].present?
   end
 
   def order?

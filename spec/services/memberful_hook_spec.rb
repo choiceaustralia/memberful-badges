@@ -2,11 +2,19 @@ require 'rails_helper'
 
 RSpec.describe MemberfulHook do
   def subject(fixture)
-    described_class.new(read_fixture(fixture), 'secret')
+    described_class.new(read_fixture(fixture))
   end
 
   describe '#valid?' do
-    it { expect(subject('member_signup.json')).to be_valid }
+    it 'is a valid request' do
+      ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'] = 'secret'
+      expect(subject('member_signup.json')).to be_valid
+    end
+
+    it 'is not a valid request' do
+      ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'] = nil
+      expect(subject('member_signup.json')).not_to be_valid
+    end
   end
 
   describe '#order?' do
