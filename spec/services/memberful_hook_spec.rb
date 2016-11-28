@@ -6,7 +6,7 @@ RSpec.describe MemberfulHook do
     let(:request) do
       double(
         body: double(read: read_fixture('member_signup.json')),
-        headers: { 'X-Memberful-Webhook-Digest' => 'e705c95c8c076f72dedd4ff54a56fdc4fce05d10f9b7ec7fc183ddfa948857e6' }
+        headers: { 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST' => 'e705c95c8c076f72dedd4ff54a56fdc4fce05d10f9b7ec7fc183ddfa948857e6' }
       )
     end
 

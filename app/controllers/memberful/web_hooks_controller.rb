@@ -9,8 +9,6 @@ module Memberful
     end
 
     def create
-      logger.debug request.headers
-
       @hook = MemberfulHook.new(request, ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'])
       head :forbidden and return if !@hook.valid?
 
