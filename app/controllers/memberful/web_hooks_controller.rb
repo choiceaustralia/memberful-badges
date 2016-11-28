@@ -12,6 +12,8 @@ module Memberful
       logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
       logger.info request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST']
       logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
+      logger.info request.body.read
+      logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
 
       @hook = MemberfulHook.new(request, ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'])
       head :forbidden and return if !@hook.valid?
