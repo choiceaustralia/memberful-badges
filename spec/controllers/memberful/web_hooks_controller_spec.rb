@@ -15,20 +15,20 @@ module Memberful
 
       describe 'checking valid web hooks' do
         it 'is a valid web hook' do
-          expect_any_instance_of(MemberfulHook).to receive(:valid?).and_return(true)
+          expect(MemberfulHook).to receive(:valid_secret?).and_return(true)
           post :create, read_fixture('member_signup.json')
           expect(response).to have_http_status(:ok)
         end
 
         it 'not is a valid web hook' do
-          expect_any_instance_of(MemberfulHook).to receive(:valid?).and_return(false)
+          expect(MemberfulHook).to receive(:valid_secret?).and_return(false)
           post :create, read_fixture('member_signup.json')
           expect(response).to have_http_status(:forbidden)
         end
       end
 
       describe 'valid requests' do
-        before { expect_any_instance_of(MemberfulHook).to receive(:valid?).and_return(true) }
+        before { expect(MemberfulHook).to receive(:valid_secret?).and_return(true) }
 
         describe 'non community member users' do
           before { allow(User).to receive(:find_by_email).and_return(nil) }

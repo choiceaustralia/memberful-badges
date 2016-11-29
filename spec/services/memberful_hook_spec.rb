@@ -3,29 +3,25 @@ require 'rails_helper'
 RSpec.describe MemberfulHook do
 
   describe '#valid?' do
-    let(:request) do
-      double(
-        body: double(read: read_fixture('member_signup.json')),
-        headers: { 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST' => 'ce03efd9a0c4441a582dcdfe7f33f47f057a61f6ed8a8fbd05a52276c4c9bb1a' }
-      )
-    end
+    let(:payload) { read_fixture('member_signup.json') }
 
     it 'is a valid request' do
-      expect(described_class.new(request, 'secret')).to be_valid
+      ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'] = 'secret'
+      expect(described_class.valid_secret?(payload, 'ce03efd9a0c4441a582dcdfe7f33f47f057a61f6ed8a8fbd05a52276c4c9bb1a')).to eq true
     end
 
     it 'is not a valid request' do
-      expect(described_class.new(request, 'wrong!')).not_to be_valid
+      ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'] = 'wrong-secret'
+      expect(described_class.valid_secret?(payload, 'ce03efd9a0c4441a582dcdfe7f33f47f057a61f6ed8a8fbd05a52276c4c9bb1a')).to eq false
     end
   end
 
   describe 'valid hooks' do
     def subject(fixture)
-      request = double(body: double(read: read_fixture(fixture)))
-      described_class.new(request, ENV['secret'])
+      described_class.new(read_fixture(fixture))
     end
 
-    describe '#order?' do
+    describe '.order?' do
       it { expect(subject('order.completed.json')).to be_order }
       it { expect(subject('order.purchased.json')).to be_order }
       it { expect(subject('order.refunded.json')).to be_order }
@@ -34,19 +30,19 @@ RSpec.describe MemberfulHook do
       it { expect(subject('member_signup.json')).not_to be_order }
     end
 
-    describe '#purchased?' do
+    describe '.purchased?' do
       it { expect(subject('order.purchased.json')).to be_purchased }
       it { expect(subject('order.suspended.json')).not_to be_purchased }
       it { expect(subject('member_updated.json')).not_to be_purchased }
       it { expect(subject('member_signup.json')).not_to be_purchased }
     end
 
-    describe '#signup?' do
+    describe '.signup?' do
       it { expect(subject('member_signup.json')).to be_signup }
       it { expect(subject('member_updated.json')).not_to be_signup }
     end
 
-    describe '#suspended?' do
+    describe '.suspended?' do
       it { expect(subject('order.suspended.json')).to be_suspended }
       it { expect(subject('order.purchased.json')).not_to be_suspended }
       it { expect(subject('member_signup.json')).not_to be_suspended }

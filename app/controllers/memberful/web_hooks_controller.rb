@@ -9,14 +9,11 @@ module Memberful
     end
 
     def create
-      logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
-      logger.info request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST']
-      logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
-      logger.info request.body.read
-      logger.info 'HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'
+      payload = request.body.read
 
-      @hook = MemberfulHook.new(request, ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'])
-      head :forbidden and return if !@hook.valid?
+      head :forbidden and return if !MemberfulHook.valid_secret?(payload, request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'])
+
+      @hook = MemberfulHook.new(payload)
 
       user = find_user_by_memberful_data
 
