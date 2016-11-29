@@ -1,3 +1,3 @@
 module Memberful
-  VERSION = '1.10.4'
+  VERSION = '1.11.5'
 end

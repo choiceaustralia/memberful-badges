@@ -1,9 +1,14 @@
+require 'digest'
 
 class MemberfulHook
   attr_reader :data
 
   def initialize(payload)
     @data = JSON.parse(payload)
+  end
+
+  def self.valid_secret?(payload, hash)
+    Digest::SHA256.hexdigest(payload.strip + ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET']) == hash
   end
 
   def order?

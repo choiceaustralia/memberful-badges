@@ -9,7 +9,12 @@ module Memberful
     end
 
     def create
-      @hook = MemberfulHook.new(request.body.read)
+      payload = request.body.read
+
+      head :forbidden and return if !MemberfulHook.valid_secret?(payload, request.headers['HTTP_X_MEMBERFUL_WEBHOOK_DIGEST'])
+
+      @hook = MemberfulHook.new(payload)
+
       user = find_user_by_memberful_data
 
       head :ok and return if user.nil?

@@ -5,71 +5,93 @@ module Memberful
     routes { Memberful::Engine.routes }
 
     describe 'web hooks' do
-      let(:headers) { { 'CONTENT_TYPE': 'application/x-www-form-urlencoded' } }
       let(:user) { double(id: 2, save: nil) }
       let(:badge) { double(id: 4) }
 
-      describe 'non community member users' do
-        before { allow(User).to receive(:find_by_email).and_return(nil) }
+      before do
+        request.headers['CONTENT_TYPE'] = 'application/x-www-form-urlencoded'
+        ENV['DISCOURSE_MEMBERFUL_WEBHOOK_SECRET'] = 'secret'
+      end
 
-        it 'ignores non users for member signup' do
-          expect(UserCustomField).not_to receive(:create!)
-          expect(User).not_to receive(:save)
-          post :create, read_fixture('member_signup.json'), headers
+      describe 'checking valid web hooks' do
+        it 'is a valid web hook' do
+          expect(MemberfulHook).to receive(:valid_secret?).and_return(true)
+          post :create, read_fixture('member_signup.json')
+          expect(response).to have_http_status(:ok)
         end
 
-        it 'ignores non users for orders' do
-          expect(Badge).not_to receive(:find_by_name)
-          post :create, read_fixture('order.purchased.json'), headers
+        it 'not is a valid web hook' do
+          expect(MemberfulHook).to receive(:valid_secret?).and_return(false)
+          post :create, read_fixture('member_signup.json')
+          expect(response).to have_http_status(:forbidden)
         end
       end
 
-      describe 'save memberful ID' do
-        let(:data) { read_fixture('member_signup.json') }
+      describe 'valid requests' do
+        before { expect(MemberfulHook).to receive(:valid_secret?).and_return(true) }
 
-        after { post :create, data, headers }
+        describe 'non community member users' do
+          before { allow(User).to receive(:find_by_email).and_return(nil) }
 
-        it 'finds the user' do
-          allow(UserCustomField).to receive(:create!)
-          expect(User).to receive(:find_by_email).with('arthur.wrightus@example.com').and_return(user)
+          it 'ignores non users for member signup' do
+            expect(UserCustomField).not_to receive(:create!)
+            expect(User).not_to receive(:save)
+            post :create, read_fixture('member_signup.json')
+          end
+
+          it 'ignores non users for orders' do
+            expect(Badge).not_to receive(:find_by_name)
+            post :create, read_fixture('order.purchased.json')
+          end
         end
 
-        it 'creates a custom field' do
-          allow(User).to receive(:find_by_email).and_return(user)
-          expect(UserCustomField).to receive(:create!).with(user_id: user.id, name: 'memberful_id', value: 752)
-        end
-      end
+        describe 'save memberful ID' do
+          let(:data) { read_fixture('member_signup.json') }
 
-      describe 'grant user a badge' do
-        let(:data) { read_fixture('order.purchased.json') }
+          after { post :create, data }
 
-        after { post :create, data, headers }
+          it 'finds the user' do
+            allow(UserCustomField).to receive(:create!)
+            expect(User).to receive(:find_by_email).with('john.doe@example.com').and_return(user)
+          end
 
-        it 'finds the user' do
-          expect(User).to receive(:find_by_email).with('john.doe@example.com')
-        end
-
-        it 'finds the badge' do
-          allow(User).to receive(:find_by_email).and_return(user)
-          expect(Badge).to receive(:find_by_name).with('Consumer Defender')
+          it 'creates a custom field' do
+            allow(User).to receive(:find_by_email).and_return(user)
+            expect(UserCustomField).to receive(:create!).with(user_id: user.id, name: 'memberful_id', value: 0)
+          end
         end
 
-        it 'grants the badge to the user' do
-          allow(User).to receive(:find_by_email).and_return(user)
-          allow(Badge).to receive(:find_by_name).and_return(badge)
-          expect(BadgeGranter).to receive(:grant).with(badge, user)
+        describe 'grant user a badge' do
+          let(:data) { read_fixture('order.purchased.json') }
+
+          after { post :create, data }
+
+          it 'finds the user' do
+            expect(User).to receive(:find_by_email).with('arthur.wrightus@example.com')
+          end
+
+          it 'finds the badge' do
+            allow(User).to receive(:find_by_email).and_return(user)
+            expect(Badge).to receive(:find_by_name).with('Consumer Defender')
+          end
+
+          it 'grants the badge to the user' do
+            allow(User).to receive(:find_by_email).and_return(user)
+            allow(Badge).to receive(:find_by_name).and_return(badge)
+            expect(BadgeGranter).to receive(:grant).with(badge, user)
+          end
         end
-      end
 
-      describe 'revoking a badge' do
-        let(:data) { read_fixture('order.suspended.json') }
+        describe 'revoking a badge' do
+          let(:data) { read_fixture('order.suspended.json') }
 
-        after { post :create, data, headers }
+          after { post :create, data }
 
-        it 'revokes the badge from the user' do
-          allow(User).to receive(:find_by_email).and_return(user)
-          allow(Badge).to receive(:find_by_name).and_return(badge)
-          expect(UserBadge).to receive(:find_by).with(badge_id: badge.id, user_id: user.id)
+          it 'revokes the badge from the user' do
+            allow(User).to receive(:find_by_email).and_return(user)
+            allow(Badge).to receive(:find_by_name).and_return(badge)
+            expect(UserBadge).to receive(:find_by).with(badge_id: badge.id, user_id: user.id)
+          end
         end
       end
     end
