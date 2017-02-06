@@ -1,0 +1,32 @@
+{
+  "event": "member_updated",
+  "member": {
+    "address": {
+      "street": "Street",
+      "city": "City",
+      "postal_code": "Postal code",
+      "country": "City"
+    },
+    "created_at": 1475749607,
+    "credit_card": {
+      "exp_month": 1,
+      "exp_year": 2040
+    },
+    "custom_field": "Custom field value",
+    "email": "john.doe@example.com",
+    "first_name": "John",
+    "full_name": "John Doe",
+    "id": 0,
+    "last_name": "Doe",
+    "phone_number": "555-12345",
+    "stripe_customer_id": "cus_00000",
+    "unrestricted_access": false,
+    "username": "john_doe"
+  },
+  "changed": {
+    "email": [
+      "bob@example.com",
+      "john.doe@example.com"
+    ]
+  }
+}
