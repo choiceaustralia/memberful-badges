@@ -1,13 +1,12 @@
-# name: Memberful Integration
-# about: This adds an interface between Memberful and Discourse. It's a bit unconventional.
-# version: 0.6.0
-# authors: rimian
+# name: memberful-integration
+# about: Integrating Discourse with Stripe
+# version: 0.1.0
+# authors: Rimian Perkins
+
+require File.expand_path('../lib/memberful/engine', __FILE__)
 
 after_initialize do
-  Discourse::Application.routes.append do
-    namespace :memberful, defaults: { format: 'json' } do
-      get 'status', action: :status, controller: :memberful
-      post 'memberful', action: :hooks, controller: :memberful
-    end
+  Discourse::Application.routes.prepend do
+    mount ::Memberful::Engine, at: '/memberful'
   end
 end
